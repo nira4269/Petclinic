@@ -35,16 +35,16 @@ pipeline {
         }
 
         stage('Deploy to VM') {
-            steps {
-                sh '''
-                ssh -o StrictHostKeyChecking=no -i /var/jenkins_home/.ssh/id_rsa $VM_USER@$VM_IP << EOF
-                docker pull niranjan4269/petclinic-app:latest
-                docker stop petclinic || true
-                docker rm petclinic || true
-                docker run -d -p 80:8080 --name petclinic niranjan4269/petclinic-app:latest
-                EOF
-                '''
-            }
-        }
+    steps {
+        sh '''
+        ssh -o StrictHostKeyChecking=no -i /var/jenkins_home/.ssh/id_rsa niranjan-a-g@34.171.69.157 << 'EOF'
+docker pull niranjan4269/petclinic-app:latest
+docker stop petclinic || true
+docker rm petclinic || true
+docker run -d -p 80:8080 --name petclinic niranjan4269/petclinic-app:latest
+EOF
+        '''
+    }
+}
     }
 }
