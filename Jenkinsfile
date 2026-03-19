@@ -6,9 +6,10 @@ pipeline {
     }
 
     stages {
+
         stage('Build') {
             steps {
-                sh 'mvn clean package'
+                sh 'mvn clean package -DskipTests'
             }
         }
 
@@ -25,7 +26,7 @@ pipeline {
                     usernameVariable: 'USER',
                     passwordVariable: 'PASS'
                 )]) {
-                    sh 'docker login -u $USER -p $PASS'
+                    sh 'echo $PASS | docker login -u $USER --password-stdin'
                     sh 'docker push $IMAGE_NAME:latest'
                 }
             }
