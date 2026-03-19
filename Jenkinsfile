@@ -31,5 +31,20 @@ pipeline {
                 }
             }
         }
+
+        stage('Deploy to VM') {
+            steps {
+                sshagent(['vm-ssh']) {
+                    sh '''
+                    ssh -o StrictHostKeyChecking=no niranjan-a-g@34.171.69.157 << EOF
+                    docker pull niranjan4269/petclinic-app:latest
+                    docker stop petclinic || true
+                    docker rm petclinic || true
+                    docker run -d -p 80:8080 --name petclinic niranjan4269/petclinic-app:latest
+                    EOF
+                    '''
+                }
+            }
+        }
     }
 }
