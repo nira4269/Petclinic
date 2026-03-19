@@ -6,12 +6,6 @@ pipeline {
     }
 
     stages {
-        stage('Clone') {
-            steps {
-                git 'https://github.com/nira4269/Petclinic.git'
-            }
-        }
-
         stage('Build') {
             steps {
                 sh 'mvn clean package'
